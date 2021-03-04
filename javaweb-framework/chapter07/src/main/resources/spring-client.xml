@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.leolian.javaweb.framework"/>
+
+    <bean id="wss4JOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="UsernameToken" />
+                <entry key="user" value="client" />
+                <entry key="passwordType" value="PasswordDigest" />
+                <entry key="passwordCallbackRef" value-ref="clientPasswordCallback" />
+            </map>
+        </constructor-arg>
+    </bean>
+    
+    <jaxws:client id="helloService"
+                  serviceClass="com.leolian.javaweb.framework.chapter07.HelloService"
+                  address="http://localhost:8283/ws/soap/hello">
+        <jaxws:outInterceptors>
+            <ref bean="wss4JOutInterceptor"/>
+        </jaxws:outInterceptors>
+    </jaxws:client>
+</beans>

@@ -1,0 +1,17 @@
+[ERROR]2017-04-15 18:19:16,929
+org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:397)
+Failed to locate the winutils binary in the hadoop binary path
+ java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries.
+	at org.apache.hadoop.util.Shell.getQualifiedBinPath(Shell.java:379)
+	at org.apache.hadoop.util.Shell.getWinUtilsPath(Shell.java:394)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:387)
+	at org.apache.hadoop.util.StringUtils.<clinit>(StringUtils.java:80)
+	at org.apache.hadoop.fs.FileSystem$Cache$Key.<init>(FileSystem.java:2823)
+	at org.apache.hadoop.fs.FileSystem$Cache$Key.<init>(FileSystem.java:2818)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:2684)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:373)
+	at com.leolian.hdfs.HDFSDemo.main(HDFSDemo.java:33)
+[WARN ]2017-04-15 18:19:17,004
+org.apache.hadoop.util.NativeCodeLoader.<clinit>(NativeCodeLoader.java:62)
+Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+ 

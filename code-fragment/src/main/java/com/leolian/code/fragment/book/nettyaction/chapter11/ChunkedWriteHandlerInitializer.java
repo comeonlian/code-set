@@ -1,0 +1,45 @@
+package com.leolian.code.fragment.book.nettyaction.chapter11;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslHandler;
+import io.netty.handler.stream.ChunkedStream;
+import io.netty.handler.stream.ChunkedWriteHandler;
+
+/**
+ * @Description: 使用ChunkedStream 传输文件内容
+ * @author lianliang
+ * @date 2017年9月21日 下午2:45:46
+ */
+public class ChunkedWriteHandlerInitializer extends ChannelInitializer<Channel> {
+	private final File file;
+	private final SslContext sslCtx;
+
+	public ChunkedWriteHandlerInitializer(File file, SslContext sslCtx) {
+		this.file = file;
+		this.sslCtx = sslCtx;
+	}
+
+	@Override
+	protected void initChannel(Channel ch) throws Exception {
+		ChannelPipeline pipeline = ch.pipeline();
+		pipeline.addLast(new SslHandler(sslCtx.newEngine(ch.alloc())));
+		pipeline.addLast(new ChunkedWriteHandler());
+		pipeline.addLast(new WriteStreamHandler());
+	}
+
+	public final class WriteStreamHandler extends ChannelInboundHandlerAdapter {
+		@Override
+		public void channelActive(ChannelHandlerContext ctx) throws Exception {
+			super.channelActive(ctx);
+			ctx.writeAndFlush(new ChunkedStream(new FileInputStream(file)));
+		}
+	}
+}

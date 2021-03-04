@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<jmxConfigurator />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="businessLogFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/chat-server.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/chat-server-%d{yyyy-MM-dd}.%i.zip
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>200MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%t] %-5p %c{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- project default level -->
+	<logger name="com.leolian" level="INFO" />
+	<logger name="com.leolian" level="DEBUG" />
+	<!-- <logger name="com.atomikos" level="ERROR" />
+	<logger name="org.elasticsearch.transport.netty" level="ERROR" />
+	<logger name="org.springframework.boot.web" level="DEBUG" />
+	<logger name="com.surfilter.monitor.repository.mybatis" level="DEBUG" /> -->
+
+	<!-- uncomment print sql statement for dev. -->
+	<!--<logger name="java.sql.Connection" level="DEBUG"/> -->
+	<!--<logger name="java.sql.Statement" level="DEBUG"/> -->
+	<!--<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+	<logger name="com.surfilter.monitor.repository" level="DEBUG" />
+	<logger name="com.surfilter.monitor.entity" level="DEBUG" /> -->
+
+	<!-- business log 使用独立的 appender, 不继承 Root 的 appender -->
+	<logger name="business" level="INFO" additivity="false">
+		<appender-ref ref="businessLogFile" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<!--<appender-ref ref="businessLogFile" /> -->
+	</root>
+
+</configuration>

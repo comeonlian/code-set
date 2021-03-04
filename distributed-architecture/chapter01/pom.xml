@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.leolian</groupId>
+        <artifactId>distributed-architecture</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>chapter01</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>rmi</module>
+        <module>cxf</module>
+        <module>cxf-client</module>
+        <module>axis2</module>
+        <module>axis2-client</module>
+        <module>thrift-01</module>
+        <module>thrift-02</module>
+        <module>grpc</module>
+        <module>http-client</module>
+        <module>rpc-framework</module>
+    </modules>
+
+
+</project>
